@@ -1,37 +1,48 @@
 # PostgreSQL
-Create & drop database/table
+### Create & drop database/table
 ```
 CREATE DATABASE database;
 CREATE TABLE table(col DATATYPE CONSTRAINTS);
 DROP TABLE table;
 ```
-Add & delete columns in a table 
+### Add & delete columns in a table 
 ```
 ALTER TABLE table ADD COLUMN col;
 ALTER TABLE table DROP COLUMN col;
 ALTER TABLE table ADD COLUMN col DATATYPE REFERENCE referenced_table(referenced_col);
-ALTER TABLE table ADD UNIQUE(col); -> ensure each value in the column has no duplicates
-ALTER TABLE table ADD COLUMN col SET NOT NULL; -> ensure the value is not empty 
 ```
-Renaming
+```
+ALTER TABLE table ADD UNIQUE(col); 
+```
+ensure each value in the column has no duplicates
+```
+ALTER TABLE table ADD COLUMN col SET NOT NULL; 
+```
+ensure the value is not empty
+### Renaming
 ```
 ALTER TABLE table RENAME COLUMN col TO new_col;
 ALTER DATABASE database RENAME TO new_database;
 ```
-Alter data in a table 
+### Alter data in a table 
 ```
 INSERT INTO table(col1, col2) VALUES(val1, val2),(val3, val4),(...);
 DELELTE FROM table WHERE <condition>;
 UPDATE table SET col=new_val WHERE <condition>
 ```
-Selecting
+
+### Selecting
 ```
 SELECT * FROM table;
 SELECT a,b FROM table;
 SELECT * FROM table ORDER BY col;
-SELECT * FROM table1 FULL JOIN table2 ON table1.primaryKeyCol = table2.primaryKeyCol; -> shows one-to-one relationships
 ```
-Constraints
+```
+SELECT * FROM table1 FULL JOIN table2 ON table1.primaryKeyCol = table2.primaryKeyCol; 
+```
+shows one-to-one relationships
+
+### Constraints
 ```
 ALTER TABLE table ADD PRIMARY KEY(col1, col2);
 ALTER TABLE table DROP CONSTRAINTS name;
@@ -54,35 +65,55 @@ read NAME
 echo Hello $NAME
 ```
 
-Add titles to your script 
+### Add titles to your script 
 ```
 echo -e "\n~~ Questionnaire ~~\n"
 ```
 
-Actions for a file
+### Actions for a file
 ```
-chmod <permission> <filename> -> Give a file permissions to do sth.
-chmod +x <filename> -> give a file executable permissions
-which bash -> see the path to bash
-#!<path to interpreter> -> e.g. #!/bin/bash
-./<filename> -> execute script in a file
-ls / -> list what's in the root of the file system
-cat <filename> -> print the content of a file 
+chmod <permission> <filename>
 ```
+Give a file permissions to do sth.
+```
+chmod +x <filename>
+```
+give a file executable permissions
 
-Arrays
+```
+which bash
+#!<path to interpreter>
+```
+see the path to bash
+e.g. #!/bin/bash
+```
+./<filename>
+```
+execute script in a file
+```
+ls /
+```
+list what's in the root of the file system
+```
+cat <filename>
+```
+print the content of a file 
+
+### Arrays
 ```
 ARR=("a", "b", "c") -> create an array
 echo ${ARR[@]} -> print whole array
 echo ${ARR[index]} -> print variable at a specific index
 ```
 
-Create a random number
+### Create a random number
 ```
-N=$(( RANDOM % 6 )) -> thic create a random number from 1 to 5
+N=$(( RANDOM % 6 ))
 ```
+thic create a random number from 1 to 5
 
-Other actions for printing, an example:
+### Other actions for printing
+an example:
 here adding (( ... )) doesn't change the variable itself, it performs a calculation but output nothing.
 $(( ... )) replace the calculation with the result of it.
 ```
@@ -93,11 +124,11 @@ echo $J
 5
 ```
 
-### Functions
+## Functions
 
-if argument:
+### if argument:
 ```
-if (( condition ))
+if [[ condition ]]
 then
   statement
 elseif
@@ -108,7 +139,7 @@ else
 fi 
 ```
 
-while loop
+### while loop
 ```
 while [[ condition ]]
 do
@@ -116,18 +147,46 @@ do
 done 
 ```
 
-Create a function
+### Create a function
 ```
 FUNCTION() {
   statement
 }
 ```
 # SQL
-Query database using PSQL variable
+### Query database using PSQL variable
 ```
 PSQL="psql -X --username=freecodecamp --dbname=students --no-align --tuples-only -c"
 $($PSQL "<query_here>")
+```
 query looks like this: 
+```
 SELECT col FROM table WHERE <condition>
 e.g. MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR'")
 ```
+
+### Delete all the data in tables.
+Need to truncate any tables that uses a col from it as a foreign key at the same time 
+```
+TRUNCATE table1, table2, table3
+```
+
+### Shell script for parsing a comma-separated file 
+Uses "cat" and "read" commands to process a file with comma-seperated values. It reads the content of a file specified by <filename> and uses the "|" (pipe) operator to send the output of the "cat" command to the "read" command, which is used to read the content of each line and assign it to the variables  
+The "IFS" (internal field separatorr) variable is set to "," to indicate that the field are separated by commas
+```
+cat students_test.csv | while IFS="," read var1 var2 var3 var4
+do
+  echo $FIRST
+done
+```
+
+### Wildcard
+% = any # of characters, _ = one character
+```
+SELECT * FROM client WHERE client_name LIKE '%LLC';
+SELECT * FROM client WHERE client_name LIKE '%LLC%';
+```
+the 1st will select all with name ends with "LLC"
+the 2nd will select all with name that has "LLC" in it somewhere
+
