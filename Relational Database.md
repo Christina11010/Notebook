@@ -189,4 +189,22 @@ SELECT * FROM client WHERE client_name LIKE '%LLC%';
 ```
 the 1st will select all with name ends with "LLC"
 the 2nd will select all with name that has "LLC" in it somewhere
-
+```
+SELECT * FROM employee WHERE birth_date LIKE '____-10%';
+```
+This will find all employee with date of birth in October. The 4 "_" is any 4 characters (in this case, the 4 numbers that makes up year)
+  
+### Union
+```
+SELECT col1 FROM table1 UNION SELECT col2 FROM table2;
+```
+### Join
+```
+SELECT col1, col2, col3 FROM table JOIN joined_col ON <condition>;
+```
+joined_col is the column that both tables have in common. 
+the 2 tables are combined when the <condition> is met for certain rows 
+```
+SELECT col1, col2, col3 FROM table LEFT JOIN joined_col ON <condition>;
+```
+"left join" combines all rows in the result, but only the correct rows has not null result
