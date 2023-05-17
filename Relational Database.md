@@ -175,12 +175,67 @@ TRUNCATE table1, table2, table3
 Uses "cat" and "read" commands to process a file with comma-seperated values. It reads the content of a file specified by <filename> and uses the "|" (pipe) operator to send the output of the "cat" command to the "read" command, which is used to read the content of each line and assign it to the variables  
 The "IFS" (internal field separatorr) variable is set to "," to indicate that the field are separated by commas
 ```
-cat students_test.csv | while IFS="," read var1 var2 var3 var4
+cat students_test.csv | while IFS="," read VAR1 VAR2 VAR3 VAR4
 do
   echo $FIRST
 done
 ```
+  You can add placeholders to the field where you do not want to assign a variable to, like this:
+```
+cat student_test.csv | while INF="," read VA1 _ VAR2 _ _ VAR3
+```
+  here it skips the 2nd, 4th and 5th field.
 
+### Steps to adding data to a file
+```
+  cat courses_test.csv | while IFS="," read MAJOR COURSE
+  do
+  if [[ $MAJOR != "major" ]]
+  then
+    # get major_id
+    MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR'")
+
+    # if not found
+    if [[ -z $MAJOR_ID ]]
+    then
+      # insert major
+      INSERT_MAJOR_RESULT=$($PSQL "INSERT INTO majors(major) VALUES('$MAJOR')")
+      if [[ $INSERT_MAJOR_RESULT == "INSERT 0 1" ]]
+      then
+        echo Inserted into majors, $MAJOR
+      fi
+
+      # get new major_id
+      MAJOR_ID=$($PSQL "SELECT major_id FROM majors WHERE major='$MAJOR'")
+    fi
+
+    # get course_id
+    COURSE_ID=$($PSQL "SELECT course_id FROM courses WHERE course='$COURSE'")
+
+    # if not found
+    if [[ -z $COURSE_ID ]]
+    then
+      # insert course
+      INSERT_COURSE_RESULT=$($PSQL "INSERT INTO courses(course) VALUES('$COURSE')")
+      if [[ $INSERT_COURSE_RESULT == "INSERT 0 1" ]]
+      then
+        echo Inserted into courses, $COURSE
+      fi
+
+      # get new course_id
+      COURSE_ID=$($PSQL "SELECT course_id FROM courses WHERE course='$COURSE'")
+    fi
+
+    # insert into majors_courses
+    INSERT_MAJORS_COURSES_RESULT=$($PSQL "INSERT INTO majors_courses(major_id, course_id) VALUES($MAJOR_ID, $COURSE_ID)")
+    if [[ $INSERT_MAJORS_COURSES_RESULT == "INSERT 0 1" ]]
+    then
+      echo Inserted into majors_courses, $MAJOR : $COURSE
+    fi
+  fi
+done
+```
+ 
 ### Wildcard
 % = any # of characters, _ = one character
 ```
