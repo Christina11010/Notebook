@@ -298,5 +298,50 @@ SELECT col1, col2, col3 FROM table LEFT JOIN joined_col ON <condition>;
 ```
 "left join" combines all rows in the result, but only the correct rows has not null result
  
-The majors and students table are linked with the major_id foreign key. If you want to see the name of a major that a student is taking, you need to JOIN the two tables into one. Example:
-```SELECT * FROM <table_1> FULL JOIN <table_2> ON <table_1>.<foreign_key_column> = <table_2>.<foreign_key_column>;```
+The majors and students table are linked with the major_id foreign key. If you want to see the name of a major that a student is taking, you need to JOIN the two tables into one. Like this: 
+  ```SELECT * FROM <table_1> FULL JOIN <table_2> ON <table_1>.<foreign_key_column> = <table_2>.<foreign_key_column>;```
+  An example: 
+  ```SELECT * FROM students FULL JOIN majors ON students.major_id = majors.major_id;```
+  result: 
+  ```
+  students=>                                                 
++------------+------------+--------------+----------+-----+----------+-------------------------+
+| student_id | first_name |  last_name   | major_id | gpa | major_id |          major          |
++------------+------------+--------------+----------+-----+----------+-------------------------+
+|          6 | Rhea       | Kellems      |       36 | 2.5 |       36 | Database Administration |
+|          7 | Emma       | Gilbert      |          |     |          |                         |
+|          8 | Kimberly   | Whitley      |       37 | 3.8 |       37 | Web Development         |
+|          9 | Jimmy      | Felipe       |       36 | 3.7 |       36 | Database Administration |
+|         10 | Kyle       | Stimson      |          | 2.8 |          |                         |
+|         11 | Casares    | Hijo         |       41 | 4.0 |       41 | Game Design             |
+|         12 | Noe        | Savage       |          | 3.6 |          |                         |
+|         13 | Sterling   | Boss         |       41 | 3.9 |       41 | Game Design             |
+|         14 | Brian      | Davis        |          | 2.3 |          |                         |
+|         15 | Kaija      | Uronen       |       41 | 3.7 |       41 | Game Design             |
+|         16 | Faye       | Conn         |       41 | 2.1 |       41 | Game Design             |
+|         17 | Efren      | Reilly       |       37 | 3.9 |       37 | Web Development         |
+|         18 | Danh       | Nhung        |          | 2.4 |          |                         |
+|         19 | Maxine     | Hagenes      |       36 | 2.9 |       36 | Database Administration |
+|         20 | Larry      | Saunders     |       38 | 2.2 |       38 | Data Science            |
+|         21 | Karl       | Kuhar        |       37 |     |       37 | Web Development         |
+|         22 | Lieke      | Hazenveld    |       41 | 3.5 |       41 | Game Design             |
+|         23 | Obie       | Hilpert      |       37 |     |       37 | Web Development         |
+|         24 | Peter      | Booysen      |          | 2.9 |          |                         |
+|         25 | Nathan     | Turner       |       36 | 3.3 |       36 | Database Administration |
+|         26 | Gerald     | Osiki        |       38 | 2.2 |       38 | Data Science            |
+|         27 | Vanya      | Hassanah     |       41 | 4.0 |       41 | Game Design             |
+|         28 | Roxelana   | Florescu     |       36 | 3.2 |       36 | Database Administration |
+|         29 | Helene     | Parker       |       38 | 3.4 |       38 | Data Science            |
+|         30 | Mariana    | Russel       |       37 | 1.8 |       37 | Web Development         |
+|         31 | Ajit       | Dhungel      |          | 3.0 |          |                         |
+|         32 | Mehdi      | Vandenberghe |       36 | 1.9 |       36 | Database Administration |
+|         33 | Dejon      | Howell       |       37 | 4.0 |       37 | Web Development         |
+|         34 | Aliya      | Gulgowski    |       42 | 2.6 |       42 | System Administration   |
+|         35 | Ana        | Tupajic      |       38 | 3.1 |       38 | Data Science            |
+|         36 | Hugo       | Duran        |          | 3.8 |          |                         |
+|            |            |              |          |     |       39 | Network Engineering     |
+|            |            |              |          |     |       40 | Computer Programming    |
++------------+------------+--------------+----------+-----+----------+-------------------------+
+(33 rows)
+```
+
