@@ -239,15 +239,43 @@ done
 ### Wildcard
 % = any # of characters, _ = one character
 ```
-SELECT * FROM client WHERE client_name LIKE '%LLC';
-SELECT * FROM client WHERE client_name LIKE '%LLC%';
+SELECT * FROM client WHERE client_name LIKE '%A';
+SELECT * FROM client WHERE client_name LIKE '%A%';
 ```
-the 1st will select all with name ends with "LLC"
-the 2nd will select all with name that has "LLC" in it somewhere
+the 1st will select all with name ends with "A"
+the 2nd will select all with name that has "A" in it somewhere
 ```
 SELECT * FROM employee WHERE birth_date LIKE '____-10%';
 ```
-This will find all employee with date of birth in October. The 4 "_" is any 4 characters (in this case, the 4 numbers that makes up year)
+This will find all employee with date of birth in October. The 4 "_" is any 4 characters (in this case, the 4 numbers that makes up year)  
+
+```ILIKE``` & ```NOT ILIKE``` are for non-case sensitive patterns 
+  
+Combining 2 patterns together
+```
+SELECT * FROM courses WHERE course NOT ILIKE '<pattern>' AND course LIKE <pattern> ;
+```
+
+Access empty datapoint using ```IS NULL``` like this: ```WHERE <column> IS NULL``` or access non-empty data using ```IS NOT NULL```
+  
+Specify the ascending order (ASC) by adding ```ORDER BY col``` at the end of a query, for example: ```SELECT * FROM student ORDER BY pga```. Adding ```DESC``` at the end of the query for descending order. You can also order it by multiple rules, like this: ```ORDER BY col1, col2, col3;``` This will order it based on col1 first, then col2, then col3.
+  
+Limit the certain number of rows returned by adding ```LIMIT <number>``` at the end of the query
+  
+```WHERE``` goes first, then ```ORDER BY``` then ```LIMIT```
+ 
+Mathematic functions
+```SELECT MIN(col) FROM table``` finds the lowest value in the column. ```MAX()``` for maximum value. 
+
+```SUM()``` for sum, ```AVG()``` for average
+  
+Round up decimals with ```CEIL()```, round down decimals with ```FLOOR()```, round to the nearest whole number with ```ROUND```, round to a specific no. of decimal places with ```ROUND(<number_to_round>, <decimal_places>)```
+
+  count total number of entries there are in a table for a col. with ```SELECT COUNT(*) FROM col_name``` or ```SELECT COUNT(col) FROM table```
+  
+  ```DISTINCT``` shows only the unique values, use it like: ```DISTINCT(col)```, or similarly with ```GROUP BY col```. With ```GROUP BY col``` you can add any other aggregate functions (```MIN```, ```MAX```, etc.). For example, to view the major_id col and no. of students in each major_id col, ```SELECT major_id, COUNT(*) FRORM students GROUP BY major_id;``` Another option: ```SELECT <column> FROM <table> GROUP BY <column> HAVING <condition>```
+  
+  Rename a column: SELECT <column> AS <new_column_name>```
   
 ### Union
 ```
