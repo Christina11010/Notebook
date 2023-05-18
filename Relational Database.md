@@ -297,3 +297,6 @@ the 2 tables are combined when the <condition> is met for certain rows
 SELECT col1, col2, col3 FROM table LEFT JOIN joined_col ON <condition>;
 ```
 "left join" combines all rows in the result, but only the correct rows has not null result
+ 
+The majors and students table are linked with the major_id foreign key. If you want to see the name of a major that a student is taking, you need to JOIN the two tables into one. Example:
+```SELECT * FROM <table_1> FULL JOIN <table_2> ON <table_1>.<foreign_key_column> = <table_2>.<foreign_key_column>;```
