@@ -404,3 +404,15 @@ students=>
   ```SELECT * FROM <table_1> FULL JOIN <table_2> USING(<column>) FULL JOIN <table_3> USING(<column>)``` 
  
   This example will join the first two tables into one, turning it into the left table for the second join.
+  
+  Another example that combines all from above: 
+  ```
+  List of courses, in alphabetical order, with only one student enrolled:
+SELECT course FROM students 
+RIGHT JOIN majors USING(major_id) 
+INNER JOIN majors_courses USING(major_id) 
+INNER JOIN courses USING(course_id) 
+GROUP BY course 
+HAVING COUNT(student_id) = 1
+ORDER BY course;
+  ```
