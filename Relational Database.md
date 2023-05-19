@@ -282,6 +282,13 @@ Round up decimals with ```CEIL()```, round down decimals with ```FLOOR()```, rou
 ```echo -e "\nMajor ID, total number of students in a column named 'number_of_students', and average GPA rounded to two decimal places in a column name 'average_gpa', for each major ID in the students table having a student count greater than 1:"
   
 echo "$($PSQL "SELECT major_id, COUNT(*) AS number_of_students, ROUND(AVG(gpa), 2) AS average_gpa FROM students GROUP BY major_id HAVING COUNT(*) > 1")"
+
+Result => 
+  |8|2.97
+41|6|3.53
+38|4|2.73
+36|6|2.92
+37|6|3.38
   ```
 ### Union
 ```
@@ -293,16 +300,15 @@ SELECT col1, col2, col3 FROM table JOIN joined_col ON <condition>;
 ```
 joined_col is the column that both tables have in common. 
 the 2 tables are combined when the <condition> is met for certain rows 
-```
-SELECT col1, col2, col3 FROM table LEFT JOIN joined_col ON <condition>;
-```
-"left join" combines all rows in the result, but only the correct rows has not null result
  
 The majors and students table are linked with the major_id foreign key. If you want to see the name of a major that a student is taking, you need to JOIN the two tables into one. Like this: 
+  
   ```SELECT * FROM <table_1> FULL JOIN <table_2> ON <table_1>.<foreign_key_column> = <table_2>.<foreign_key_column>;```
+  
   An example: 
   ```SELECT * FROM students FULL JOIN majors ON students.major_id = majors.major_id;```
-  result: 
+  
+  Outcome: 
   ```
   students=>                                                 
 +------------+------------+--------------+----------+-----+----------+-------------------------+
@@ -312,30 +318,7 @@ The majors and students table are linked with the major_id foreign key. If you w
 |          7 | Emma       | Gilbert      |          |     |          |                         |
 |          8 | Kimberly   | Whitley      |       37 | 3.8 |       37 | Web Development         |
 |          9 | Jimmy      | Felipe       |       36 | 3.7 |       36 | Database Administration |
-|         10 | Kyle       | Stimson      |          | 2.8 |          |                         |
-|         11 | Casares    | Hijo         |       41 | 4.0 |       41 | Game Design             |
-|         12 | Noe        | Savage       |          | 3.6 |          |                         |
-|         13 | Sterling   | Boss         |       41 | 3.9 |       41 | Game Design             |
-|         14 | Brian      | Davis        |          | 2.3 |          |                         |
-|         15 | Kaija      | Uronen       |       41 | 3.7 |       41 | Game Design             |
-|         16 | Faye       | Conn         |       41 | 2.1 |       41 | Game Design             |
-|         17 | Efren      | Reilly       |       37 | 3.9 |       37 | Web Development         |
-|         18 | Danh       | Nhung        |          | 2.4 |          |                         |
-|         19 | Maxine     | Hagenes      |       36 | 2.9 |       36 | Database Administration |
-|         20 | Larry      | Saunders     |       38 | 2.2 |       38 | Data Science            |
-|         21 | Karl       | Kuhar        |       37 |     |       37 | Web Development         |
-|         22 | Lieke      | Hazenveld    |       41 | 3.5 |       41 | Game Design             |
-|         23 | Obie       | Hilpert      |       37 |     |       37 | Web Development         |
-|         24 | Peter      | Booysen      |          | 2.9 |          |                         |
-|         25 | Nathan     | Turner       |       36 | 3.3 |       36 | Database Administration |
-|         26 | Gerald     | Osiki        |       38 | 2.2 |       38 | Data Science            |
-|         27 | Vanya      | Hassanah     |       41 | 4.0 |       41 | Game Design             |
-|         28 | Roxelana   | Florescu     |       36 | 3.2 |       36 | Database Administration |
-|         29 | Helene     | Parker       |       38 | 3.4 |       38 | Data Science            |
-|         30 | Mariana    | Russel       |       37 | 1.8 |       37 | Web Development         |
-|         31 | Ajit       | Dhungel      |          | 3.0 |          |                         |
-|         32 | Mehdi      | Vandenberghe |       36 | 1.9 |       36 | Database Administration |
-|         33 | Dejon      | Howell       |       37 | 4.0 |       37 | Web Development         |
+...
 |         34 | Aliya      | Gulgowski    |       42 | 2.6 |       42 | System Administration   |
 |         35 | Ana        | Tupajic      |       38 | 3.1 |       38 | Data Science            |
 |         36 | Hugo       | Duran        |          | 3.8 |          |                         |
@@ -344,4 +327,71 @@ The majors and students table are linked with the major_id foreign key. If you w
 +------------+------------+--------------+----------+-----+----------+-------------------------+
 (33 rows)
 ```
+If switch the positiono of students table and major table: ```SELECT * FROM majors FULL JOIN students ON students.major_id = majors.major_id;```
 
+  Result:
+  ```
+  students=>                                                 
++----------+-------------------------+------------+------------+--------------+----------+-----+
+| major_id |          major          | student_id | first_name |  last_name   | major_id | gpa |
++----------+-------------------------+------------+------------+--------------+----------+-----+
+|       36 | Database Administration |          6 | Rhea       | Kellems      |       36 | 2.5 |
+|          |                         |          7 | Emma       | Gilbert      |          |     |
+|       37 | Web Development         |          8 | Kimberly   | Whitley      |       37 | 3.8 |
+|       36 | Database Administration |          9 | Jimmy      | Felipe       |       36 | 3.7 |
+|          |                         |         10 | Kyle       | Stimson      |          | 2.8 |
+|       41 | Game Design             |         11 | Casares    | Hijo         |       41 | 4.0 |
+|          |                         |         12 | Noe        | Savage       |          | 3.6 |
+...
+|       37 | Web Development         |         33 | Dejon      | Howell       |       37 | 4.0 |
+|       42 | System Administration   |         34 | Aliya      | Gulgowski    |       42 | 2.6 |
+|       38 | Data Science            |         35 | Ana        | Tupajic      |       38 | 3.1 |
+|          |                         |         36 | Hugo       | Duran        |          | 3.8 |
+|       39 | Network Engineering     |            |            |              |          |     |
+|       40 | Computer Programming    |            |            |              |          |     |
++----------+-------------------------+------------+------------+--------------+----------+-----+
+(33 rows)
+  ```
+  
+```
+SELECT * FROM students LEFT JOIN majors ON students.major_id = majors.major_id;
+  ```
+"left join" combines only the NOT NULL rows on the left side of "FULL JOIN", in this case, "students" table; similar goes with ```RIGHT JOIN```; Or ```INNER JOIN```, which returns NOT NULL rows for both table1 and table2
+  
+  If only joining certain columns: 
+  ```
+  SELECT major FROM students INNER JOIN majors ON students.major_id = majors.major_id;
+students=>               
++-------------------------+
+|          major          |
++-------------------------+
+| Database Administration |
+| Web Development         |
+| Database Administration |
+| Game Design             |
+| Game Design             |
+...
+| Web Development         |
+| Database Administration |
+| Web Development         |
+| System Administration   |
+| Data Science            |
++-------------------------+
+(23 rows)
+  ```
+  Without deplicates, add DISTINCT(), like this: 
+  
+  ```
+students=> SELECT DISTINCT(major) FROM students INNER JOIN majors ON students.major_id = majors.major_id;
+students=>               
++-------------------------+
+|          major          |
++-------------------------+
+| Database Administration |
+| Game Design             |
+| Data Science            |
+| System Administration   |
+| Web Development         |
++-------------------------+
+(5 rows)
+  ```
