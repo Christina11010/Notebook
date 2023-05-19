@@ -9,7 +9,7 @@ DROP TABLE table;
 ```
 ALTER TABLE table ADD COLUMN col;
 ALTER TABLE table DROP COLUMN col;
-ALTER TABLE table ADD COLUMN col DATATYPE REFERENCE referenced_table(referenced_col);
+ALTER TABLE table ADD COLUMN col DATATYPE REFERENCES referenced_table(referenced_col);
 ```
 ```
 ALTER TABLE table ADD UNIQUE(col); 
