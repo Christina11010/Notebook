@@ -395,3 +395,12 @@ students=>
 +-------------------------+
 (5 rows)
   ```
+
+```USING``` to join tables if the foreign key column has the same name in both tables.
+  
+  ```SELECT * FROM <table_1> FULL JOIN <table_2> USING(<column>);```
+  
+  You can add a third table to a join like this:  
+  ```SELECT * FROM <table_1> FULL JOIN <table_2> USING(<column>) FULL JOIN <table_3> USING(<column>)``` 
+ 
+  This example will join the first two tables into one, turning it into the left table for the second join.
