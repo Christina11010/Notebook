@@ -50,7 +50,7 @@ ALTER TABLE table ADD FOREIGN KEY(col) REFERENCES table(col);
 ```
 
 # Bash Scripting
-### Basic actions
+## Basic actions
 ```
 $VAR="" -> create a variable (no space on 2 sides of the equal sign)
 echo -> print
@@ -153,6 +153,36 @@ FUNCTION() {
   statement
 }
 ```
+
+## Advanced Bash
+* ```<command> > <filename>``` create or overwrite a file;  
+* ```>>``` append to the file;  
+* redirect ```stderr``` with ```2>```;  
+* redirect ```stdout``` with ```1>```;  
+* redirect ```stdin``` with ```command < filename_for_stdin``` like this: ```read NAME < name.txt```, this will assign the content of name.txt to the NAME variable  
+* set ```stdin``` by the pipe ```|```: use the output from one command as input for another, like this: ```command_1 | command_2```.  This will take the ```stdout``` from command_1 and use it as the ```stdin``` for command_2. e.g.
+``` echo Chris | ./script.sh```, will automatically run script.sh with 'Chris' as input  
+script.sh:
+```
+#!/bin/bash
+read NAME
+echo Hello $NAME
+bad_command
+```
+terminal: 
+```
+~/project$ echo Chris | ./script.sh
+Hello Chris
+./script.sh: line 5: bad_command: command not found
+```
+```
+~/project$ echo Chris | ./script.sh 2> stderr.txt
+Hello Chris
+~/project$ echo Chris | ./script.sh 2> stderr.txt > stdout.txt
+```
+this will redirect the ```stderr``` output to the ```stderr.txt``` file, rather than showing up in the terminal. you can also redirect the output to ```stdout.txt``` file 
+
+
 # SQL
 ### Query database using PSQL variable
 ```
