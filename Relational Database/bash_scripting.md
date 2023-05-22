@@ -1,65 +1,36 @@
 # Bash Scripting
 ## Basic actions
-```
-$VAR="" -> create a variable (no space on 2 sides of the equal sign)
-echo -> print
-read -> accept input from users 
-```
-
-an example: 
+* ```$VAR=""``` to create a variable (no space on 2 sides of the equal sign)
+* ```echo``` to print
+* ```read``` to accept input from users, an example: 
 ```
 $QUESTIOIN="What's your name?" 
 echo $QUESTION
 read NAME
 echo Hello $NAME
 ```
-
-### Add titles to your script 
-```
-echo -e "\n~~ Questionnaire ~~\n"
-```
+* Add titles to your script, like this: ```echo -e "\n~~ Questionnaire ~~\n"```
 
 ### Actions for a file
-```
-chmod <permission> <filename>
-```
-Give a file permissions to do sth.
-```
-chmod +x <filename>
-```
-give a file executable permissions
-
+* Give a file permissions to do sth: ```chmod <permission> <filename>```
+* give a file executable permissions: ```chmod +x <filename>```
+* see the path to bash: 
 ```
 which bash
 #!<path to interpreter>
 ```
-see the path to bash
 e.g. #!/bin/bash
-```
-./<filename>
-```
-execute script in a file
-```
-ls /
-```
-list what's in the root of the file system
-```
-cat <filename>
-```
-print the content of a file 
+* execute script in a file: ```./<filename>```
+* list what's in the root of the file system: ```ls /```
+* print the content of a file: ```cat <filename>```
 
 ### Arrays
-```
-ARR=("a", "b", "c") -> create an array
-echo ${ARR[@]} -> print whole array
-echo ${ARR[index]} -> print variable at a specific index
-```
+* ```ARR=("a", "b", "c")``` to create an array
+* ```echo ${ARR[@]}``` to print whole array
+* ```echo ${ARR[index]}``` to print variable at a specific index
 
 ### Create a random number
-```
-N=$(( RANDOM % 6 ))
-```
-thic create a random number from 1 to 5
+* ```N=$(( RANDOM % 6 ))``` to create a random number from 1 to 5
 
 ### Other actions for printing
 an example:
