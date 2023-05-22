@@ -117,4 +117,5 @@ this will redirect the ```stderr``` output to the ```stderr.txt``` file, rather 
       - ```([0-9]+)```: It is a regular expression pattern that captures one or more digits.
       - ```.*```: It matches the rest of the line after the digits.
       - ```\1```: It represents the first captured group (the digits), and it is used as the replacement.
-
+* ```wc``` command prints info about a file, like this: ```cat kitty_ipsum_2.txt | wc```, it prints out: ```28     307    1678```; 
+* ```-l```flag output the number of lines in the file; ```w``` flag for number of words; ```-m``` flag for number of characters
