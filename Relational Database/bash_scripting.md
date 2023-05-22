@@ -103,6 +103,7 @@ Hello Chris
 this will redirect the ```stderr``` output to the ```stderr.txt``` file, rather than showing up in the terminal. you can also redirect the output to ```stdout.txt``` file 
 * Use ```grep``` command to search for patterns in text, like this ```grep '<pattern>' <filename>``` or adding flags ```grep <flag> '<pattern>' <filename>```
 * ```sed``` can replace text like this: ```sed 's/<pattern_to_replace>/<text_to_replace_it_with>/' <filename>```
+* replacing multiple patterns using ```sed``` like this: ```sed 's/<pattern_1>/<replacement_1>/; s/<pattern_2>/<replacement_2>/' <filename>```
 * Redirect the input like this: ```sed 's/freecodecamp/f233C0d3C@mp/i' < name.txt```
 * output line count with ```wc -l```, e.g. ```grep -o 'cat[a-z]*' kitty_ipsum_1.txt | wc -l```
 * flag ```-o``` put all the matches of the pattern on their own line
