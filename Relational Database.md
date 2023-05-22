@@ -181,6 +181,20 @@ Hello Chris
 ~/project$ echo Chris | ./script.sh 2> stderr.txt > stdout.txt
 ```
 this will redirect the ```stderr``` output to the ```stderr.txt``` file, rather than showing up in the terminal. you can also redirect the output to ```stdout.txt``` file 
+* Use ```grep``` command to search for patterns in text, like this ```grep '<pattern>' <filename>``` or adding flags ```grep <flag> '<pattern>' <filename>```
+* ```sed``` can replace text like this: ```sed 's/<pattern_to_replace>/<text_to_replace_it_with>/' <filename>```
+* Redirect the input like this: ```sed 's/freecodecamp/f233C0d3C@mp/i' < name.txt```
+* ```grep -n 'meow[a-z]*' kitty_ipsum_1.txt | sed -E 's/([0-9]+).*/\1/' >> kitty_info.txt```
+  - ```grep -n 'meow[a-z]*' kitty_ipsum_1.txt```: This command uses the grep utility to search for lines in the file ```kitty_ipsum_1.txt``` that match the pattern ```'meow[a-z]*'```. Here's what each part means:
+    * ```-n```: It is an option that tells grep to display the line numbers along with the matching lines.
+    * ```'meow[a-z]*'```: It is the regular expression pattern being searched. It matches the word "meow" followed by zero or more lowercase letters.
+    * ```kitty_ipsum_1.txt```: It is the input file being searched.
+  - ```sed -E 's/([0-9]+).*/\1/'```: This command uses the sed utility to perform a substitution operation on each line of input received from the previous command. Here's what each part means:
+    * ```-E```: It is an option that tells sed to use extended regular expressions.
+    * ```'s/([0-9]+).*/\1/'```: It is the substitution pattern being applied. It captures one or more digits at the beginning of each line and replaces the entire line with the captured digits. Here's the breakdown:
+      - ```([0-9]+)```: It is a regular expression pattern that captures one or more digits.
+      - ```.*```: It matches the rest of the line after the digits.
+      - ```\1```: It represents the first captured group (the digits), and it is used as the replacement.
 
 
 # SQL
