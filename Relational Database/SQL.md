@@ -261,3 +261,14 @@ GROUP BY course
 HAVING COUNT(student_id) = 1
 ORDER BY course;
   ```
+  
+### Case Statement
+  ```
+  case EXPRESSION in
+    PATTERN) STATEMENTS ;;
+    PATTERN) STATEMENTS ;;
+    PATTERN) STATEMENTS ;;
+    *) STATEMENTS ;;
+  esac
+
+  ```
